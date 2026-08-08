@@ -1,6 +1,6 @@
 # Agent Plugins Builder
 
-Create, convert, and package portable Agent Plugins from existing agent setups, skills, and MCP servers.
+> **Build, validate, and use portable Agent Plugins** — one CLI to create, migrate, and package Agent Plugins from existing agent setups, skills, and MCP servers.
 
 [![CI](https://github.com/HiAi-gg/agent-plugins-builder/actions/workflows/ci.yml/badge.svg)](https://github.com/HiAi-gg/agent-plugins-builder/actions/workflows/ci.yml)
 [![npm](https://img.shields.io/npm/v/@hiai-gg/agent-plugins-builder)](https://www.npmjs.com/package/@hiai-gg/agent-plugins-builder)
@@ -8,54 +8,50 @@ Create, convert, and package portable Agent Plugins from existing agent setups, 
 [![TypeScript](https://img.shields.io/badge/TypeScript-strict-blue)](https://www.typescriptlang.org/)
 [![Bun](https://img.shields.io/badge/Runtime-Bun-black)](https://bun.sh/)
 
-## Why
+## What It Is
 
-The Agent Plugins ecosystem is growing. Multiple AI coding agents — VS Code, Cursor, GitHub Copilot, ChatGPT/Codex, Claude Code, OpenCode — each have their own configuration formats for skills, instructions, and MCP servers.
+Agent Plugins Builder is a CLI for creating, migrating, and packaging portable [Agent Plugins](https://agent-plugins.org/) — the vendor-neutral format that bundles Agent Skills and MCP servers for use across compatible AI coding agents.
 
-Agent Plugins Builder converts between these formats and the portable [Agent Plugins](https://agent-plugins.org/) standard, so you can write once and use across compatible clients.
+Multiple AI coding agents — VS Code, Cursor, GitHub Copilot, ChatGPT/Codex, Claude Code, OpenCode — each have their own configuration formats for skills, instructions, and MCP servers. Builder converts between these formats and the portable Agent Plugins standard, so you can write once and use across compatible clients.
 
-## Quick Start
+## Why Use It
+
+- **Write once, use everywhere** — one plugin works in VS Code, Cursor, GitHub Copilot, ChatGPT/Codex, Claude Code, OpenCode, and Kiro.
+- **Migrate what you have** — convert existing Claude Code, Cursor, Codex, OpenCode, or VS Code/Copilot setups into portable plugins.
+- **Declarative and reproducible** — define a plugin in `plugin.yml`; Builder generates the full plugin directory. The 13 plugins in [HiAI's collection](https://github.com/HiAi-gg/agent-plugins) are built this way (see [The Collection](https://github.com/HiAi-gg/agent-plugins-builder#the-collection)).
+- **Spec-valid output** — generated plugins validate against the Agent Plugins v1.0.0 specification, and hand off to [Agent Plugin Doctor](https://github.com/HiAi-gg/agent-plugins-doctor) for deep validation and security auditing.
+
+## Install
 
 ```bash
-# Install globally (npm or bun)
+# Install once, globally (npm or bun)
 npm install -g @hiai-gg/agent-plugins-builder
 bun install -g @hiai-gg/agent-plugins-builder
 
-# Create a new plugin interactively
-agent-plugins init
-
-# Migrate from an existing agent setup
-agent-plugins migrate ./my-project
-
-# Validate and package as an archive
-agent-plugins package ./my-plugin --output ./dist
+# Or run without installing — pinned to the current release (npx or bunx)
+npx @hiai-gg/agent-plugins-builder@0.0.9 init
+bunx @hiai-gg/agent-plugins-builder@0.0.9 init
 ```
 
-Or run without installing:
+Once installed, the same commands run as `agent-plugins` (e.g. `agent-plugins init`).
+
+## Create
 
 ```bash
-bunx @hiai-gg/agent-plugins-builder init
-bunx @hiai-gg/agent-plugins-builder migrate ./my-project --from claude
-```
+# Interactive wizard — metadata, skills, MCP servers, README/LICENSE
+npx @hiai-gg/agent-plugins-builder@0.0.9 init
 
-## What It Does
-
-### Create plugins from scratch
-
-```bash
 # From a declarative config file (supports skills, MCP, metadata, README, LICENSE)
-agent-plugins create --config plugin.yml --output ./my-plugin
+npx @hiai-gg/agent-plugins-builder@0.0.9 create --config plugin.yml --output ./my-plugin
 
 # From flags — combine skills and MCP in one plugin
-agent-plugins create --name project-memory \
+npx @hiai-gg/agent-plugins-builder@0.0.9 create --name project-memory \
   --skill create-plan --skill report-progress \
   --mcp-type stdio --mcp-command "node server.js" --mcp-name my-server \
   --version 0.1.0 --author-name "Jane Doe" --license MIT
-
-# Legacy single-purpose forms
-agent-plugins create --name project-memory --skills-only
-agent-plugins create --name my-mcp-plugin --mcp-only --mcp-type stdio --mcp-command "node server.js"
 ```
+
+## Examples
 
 Example `plugin.yml`:
 
@@ -80,6 +76,38 @@ mcp:
 readme: true
 license-file: MIT
 ```
+
+```bash
+# Migrate from an existing agent setup
+npx @hiai-gg/agent-plugins-builder@0.0.9 migrate ./my-project --from claude
+
+# Non-interactive / CI creation
+npx @hiai-gg/agent-plugins-builder@0.0.9 init --yes --name my-plugin
+```
+
+## Validate
+
+```bash
+# Validate and package as an archive
+npx @hiai-gg/agent-plugins-builder@0.0.9 package ./my-plugin
+
+# Hand off to Agent Plugin Doctor for deep validation and security auditing
+npx @hiai-gg/agent-plugins-doctor@0.0.6 check ./my-plugin
+```
+
+## The Collection
+
+[HiAI's Agent Plugins collection](https://github.com/HiAi-gg/agent-plugins) ships **13 plugins** — github, agent-browser, context7, firecrawl, redis, sentry, supabase, figma, cloudflare, notion, docker, kubernetes, postgresql — all built with this CLI. Each plugin is generated from a declarative `plugin.yml`, and the collection's CI pins the exact Builder release that produced the checked-in artifacts, regenerates all 13 plugins, and fails on any drift — a concrete reproducibility check you can run locally:
+
+```bash
+git clone https://github.com/HiAi-gg/agent-plugins.git
+cd agent-plugins
+./scripts/repro-check.sh   # regenerates all 13 plugins; fails on drift
+```
+
+For validation, [Agent Plugin Doctor](https://github.com/HiAi-gg/agent-plugins-doctor) is the canonical validator and security auditor — Builder generates, Doctor checks.
+
+## What It Does
 
 ### Interactive wizard
 
@@ -111,6 +139,14 @@ agent-plugins init --config plugin.yml
 `--yes` / `--non-interactive` also accept `--description`, `--version`,
 `--author-name`, `--author-email`, and `--license` flags. The output directory
 defaults to `./<plugin-name>` (or the positional argument).
+
+### Create plugins from scratch
+
+```bash
+# Legacy single-purpose forms
+agent-plugins create --name project-memory --skills-only
+agent-plugins create --name my-mcp-plugin --mcp-only --mcp-type stdio --mcp-command "node server.js"
+```
 
 ### Migrate from existing agent setups
 
@@ -155,17 +191,17 @@ agent-plugins inspect ./my-plugin --json   # machine-readable output
 
 | Source            | Detection                    | Portable components       | Status    |
 | ----------------- | ---------------------------- | ------------------------- | --------- |
-| Claude Code       | `CLAUD.md` or `.claude/`     | Skills, MCP, instructions | Supported |
+| Claude Code       | `CLAUDE.md` or `.claude/`    | Skills, MCP, instructions | Supported |
 | Cursor            | `.cursor/`                   | Skills, MCP               | Supported |
 | Codex             | `AGENTS.md` or `config.toml` | Instructions, MCP (TOML)  | Supported |
 | OpenCode          | `AGENTS.md` or `.opencode/`  | Skills, MCP, instructions | Supported |
 | VS Code / Copilot | `.github/` or `.vscode/`     | Skills, MCP, instructions | Supported |
 
-See [Migration Sources](docs/MIGRATION_SOURCES.md) for details on what each adapter migrates and what it cannot.
+See [Migration Sources](https://github.com/HiAi-gg/agent-plugins-builder/blob/main/docs/MIGRATION_SOURCES.md) for details on what each adapter migrates and what it cannot.
 
 ## Standards
 
-This project targets the [Agent Plugins specification v1.0.0](https://agent-plugins.org/) (Working Draft).
+This project targets the [Agent Plugins specification v1.0.0](https://agent-plugins.org/).
 
 Agent Plugin Skills follow the [Agent Skills specification](https://agentskills.io/specification).
 
@@ -183,7 +219,7 @@ Agent Plugins v1.0.0 is supported by:
 | ChatGPT & Codex | ✅     | stdio, Streamable HTTP      |
 | Kiro            | ✅     | stdio, Streamable HTTP, SSE |
 
-See [Compatibility](docs/COMPATIBILITY.md) for details and evidence levels.
+See [Compatibility](https://github.com/HiAi-gg/agent-plugins-builder/blob/main/docs/COMPATIBILITY.md) for details and evidence levels.
 
 ## How It Works
 
@@ -201,7 +237,7 @@ Claude / Cursor / Codex / OpenCode / VS Code
 
 All migration adapters produce a source-agnostic `PortablePlugin` intermediate representation. The generator then emits a valid Agent Plugin directory. This means adding new source formats does not require pairwise conversions.
 
-See [Architecture](docs/ARCHITECTURE.md) for details.
+See [Architecture](https://github.com/HiAi-gg/agent-plugins-builder/blob/main/docs/ARCHITECTURE.md) for details.
 
 ## Limitations
 
@@ -214,12 +250,12 @@ See [Architecture](docs/ARCHITECTURE.md) for details.
 
 ## Documentation
 
-- [Architecture](docs/ARCHITECTURE.md) — package design, data flow, adapter pattern
-- [Migration Sources](docs/MIGRATION_SOURCES.md) — what each adapter migrates
-- [Spec Support](docs/AGENT_PLUGINS_SPEC_SUPPORT.md) — Agent Plugins v1.0.0 coverage
-- [Compatibility](docs/COMPATIBILITY.md) — client support details
-- [References](docs/REFERENCES.md) — primary sources
-- [Roadmap](docs/ROADMAP.md) — planned work
+- [Architecture](https://github.com/HiAi-gg/agent-plugins-builder/blob/main/docs/ARCHITECTURE.md) — package design, data flow, adapter pattern
+- [Migration Sources](https://github.com/HiAi-gg/agent-plugins-builder/blob/main/docs/MIGRATION_SOURCES.md) — what each adapter migrates
+- [Spec Support](https://github.com/HiAi-gg/agent-plugins-builder/blob/main/docs/AGENT_PLUGINS_SPEC_SUPPORT.md) — Agent Plugins v1.0.0 coverage
+- [Compatibility](https://github.com/HiAi-gg/agent-plugins-builder/blob/main/docs/COMPATIBILITY.md) — client support details
+- [References](https://github.com/HiAi-gg/agent-plugins-builder/blob/main/docs/REFERENCES.md) — primary sources
+- [Roadmap](https://github.com/HiAi-gg/agent-plugins-builder/blob/main/docs/ROADMAP.md) — planned work
 
 ## Development
 
@@ -233,15 +269,15 @@ bun run build
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md).
+See [CONTRIBUTING.md](https://github.com/HiAi-gg/agent-plugins-builder/blob/main/CONTRIBUTING.md).
 
 ## Security
 
-See [SECURITY.md](SECURITY.md) for vulnerability reporting.
+See [SECURITY.md](https://github.com/HiAi-gg/agent-plugins-builder/blob/main/SECURITY.md) for vulnerability reporting.
 
 ## License
 
-[MIT](LICENSE) — Copyright © 2026 HiAI
+[MIT](https://github.com/HiAi-gg/agent-plugins-builder/blob/main/LICENSE) — Copyright © 2026 HiAI
 
 ---
 

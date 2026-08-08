@@ -1,0 +1,38 @@
+README.md
+  s_9edb544c208e66::t_4bb7cb08859796 222
+  s_9edb544c208e66::t_29fc7b30f6d98b 253-258
+  s_9edb544c208e66::t_e960a75d6bbabf 240
+  s_911237e55eac85::t_bcf873ac5a0ded 204
+  s_9edb544c208e66::t_0c7965d3ba238d 200
+  s_9edb544c208e66::t_8d8c3d307f9edf 3,11,13,15,17-20,22-24,27,31-33,36,38,41-43,45,48,54-55,80-111,143-150,194
+  s_9edb544c208e66::t_662fe4b6af4470 21
+  s_9edb544c208e66::t_e811134f588811 272,276,280
+SECURITY.md
+  s_9edb544c208e66::t_091a89d7a8b5d3 7
+docs/ROADMAP.md
+  s_9edb544c208e66::t_e2743bd215e73d 5,13,24
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.21",
+  "base_commit_sha": "ceab0099382e92bc60ebe2b04c4115cff2f57550",
+  "prompts": {},
+  "sessions": {
+    "s_911237e55eac85": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_01c8430dfffeNwL4bdqqtrhOs9",
+        "model": "deepseek-v4-flash"
+      },
+      "human_author": null
+    },
+    "s_9edb544c208e66": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_01c93aedcffe0AeMDyKkSUkJy4",
+        "model": "deepseek-v4-flash"
+      },
+      "human_author": "vlgalib <vlgalib@users.noreply.github.com>"
+    }
+  }
+}

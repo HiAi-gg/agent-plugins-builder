@@ -10,6 +10,7 @@
         "@agent-plugins-builder/generator": "workspace:*",
         "@agent-plugins-builder/sources": "workspace:*",
         "@eslint/js": "^10.0.1",
+        "@hiai-gg/agent-plugins-doctor": "0.0.6",
         "@types/bun": "^1.1.0",
         "@typescript-eslint/eslint-plugin": "^8.66.0",
         "@typescript-eslint/parser": "^8.66.0",
@@ -20,7 +21,7 @@
     },
     "packages/cli": {
       "name": "@agent-plugins-builder/cli",
-      "version": "0.0.7",
+      "version": "0.0.9",
       "bin": {
         "agent-plugins": "./bin/agent-plugins",
       },
@@ -40,7 +41,7 @@
     },
     "packages/core": {
       "name": "@agent-plugins-builder/core",
-      "version": "0.0.7",
+      "version": "0.0.9",
       "dependencies": {
         "yaml": "^2.9.0",
         "zod": "^3.23.0",
@@ -48,7 +49,7 @@
     },
     "packages/generator": {
       "name": "@agent-plugins-builder/generator",
-      "version": "0.0.7",
+      "version": "0.0.9",
       "dependencies": {
         "@agent-plugins-builder/core": "workspace:*",
         "yaml": "^2.9.0",
@@ -56,14 +57,14 @@
     },
     "packages/npm": {
       "name": "@hiai-gg/agent-plugins-builder",
-      "version": "0.0.7",
+      "version": "0.0.9",
       "bin": {
         "agent-plugins": "bin/cli.js",
       },
     },
     "packages/sources": {
       "name": "@agent-plugins-builder/sources",
-      "version": "0.0.7",
+      "version": "0.0.9",
       "dependencies": {
         "@agent-plugins-builder/core": "workspace:*",
       },
@@ -95,6 +96,8 @@
     "@eslint/plugin-kit": ["@eslint/plugin-kit@0.7.2", "", { "dependencies": { "@eslint/core": "^1.2.1", "levn": "^0.4.1" } }, "sha512-+CNAzxglkrpNf/kKywqQfk74QjtceuOE7Qm+AF8miRvPF/wmmK5+OJOgVh3AVTT3RP2mH3+FOaxlE5v72owk0A=="],
 
     "@hiai-gg/agent-plugins-builder": ["@hiai-gg/agent-plugins-builder@workspace:packages/npm"],
+
+    "@hiai-gg/agent-plugins-doctor": ["@hiai-gg/agent-plugins-doctor@0.0.6", "", { "peerDependencies": { "commander": "^13.0.0" }, "bin": { "agent-plugins-doctor": "bin/cli.js" } }, "sha512-ZrIdWiRTLpLGtWObSrXEl447+D0ijgEEDYub8bk1vshKXmfL73FH+/ZPdTDCgMDcPfjuMIh3NqgJAHw8sSAAYg=="],
 
     "@humanfs/core": ["@humanfs/core@0.19.2", "", { "dependencies": { "@humanfs/types": "^0.15.0" } }, "sha512-UhXNm+CFMWcbChXywFwkmhqjs3PRCmcSa/hfBgLIb7oQ5HNb1wS0icWsGtSAUNgefHeI+eBrA8I1fxmbHsGdvA=="],
 

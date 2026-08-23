@@ -42,6 +42,7 @@
     "@agent-plugins-builder/generator": "workspace:*",
     "@agent-plugins-builder/sources": "workspace:*",
     "@eslint/js": "^10.0.1",
+    "@hiai-gg/agent-plugins-doctor": "0.0.6",
     "@types/bun": "^1.1.0",
     "@typescript-eslint/eslint-plugin": "^8.66.0",
     "@typescript-eslint/parser": "^8.66.0",

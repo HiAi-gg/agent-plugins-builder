@@ -29,8 +29,8 @@ npm install -g @hiai-gg/agent-plugins-builder
 bun install -g @hiai-gg/agent-plugins-builder
 
 # Or run without installing — pinned to the current release (npx or bunx)
-npx @hiai-gg/agent-plugins-builder@0.0.9 init
-bunx @hiai-gg/agent-plugins-builder@0.0.9 init
+npx @hiai-gg/agent-plugins-builder@0.1.0 init
+bunx @hiai-gg/agent-plugins-builder@0.1.0 init
 ```
 
 Once installed, the same commands run as `agent-plugins` (e.g. `agent-plugins init`).
@@ -39,13 +39,13 @@ Once installed, the same commands run as `agent-plugins` (e.g. `agent-plugins in
 
 ```bash
 # Interactive wizard — metadata, skills, MCP servers, README/LICENSE
-npx @hiai-gg/agent-plugins-builder@0.0.9 init
+npx @hiai-gg/agent-plugins-builder@0.1.0 init
 
 # From a declarative config file (supports skills, MCP, metadata, README, LICENSE)
-npx @hiai-gg/agent-plugins-builder@0.0.9 create --config plugin.yml --output ./my-plugin
+npx @hiai-gg/agent-plugins-builder@0.1.0 create --config plugin.yml --output ./my-plugin
 
 # From flags — combine skills and MCP in one plugin
-npx @hiai-gg/agent-plugins-builder@0.0.9 create --name project-memory \
+npx @hiai-gg/agent-plugins-builder@0.1.0 create --name project-memory \
   --skill create-plan --skill report-progress \
   --mcp-type stdio --mcp-command "node server.js" --mcp-name my-server \
   --version 0.1.0 --author-name "Jane Doe" --license MIT
@@ -79,17 +79,17 @@ license-file: MIT
 
 ```bash
 # Migrate from an existing agent setup
-npx @hiai-gg/agent-plugins-builder@0.0.9 migrate ./my-project --from claude
+npx @hiai-gg/agent-plugins-builder@0.1.0 migrate ./my-project --from claude
 
 # Non-interactive / CI creation
-npx @hiai-gg/agent-plugins-builder@0.0.9 init --yes --name my-plugin
+npx @hiai-gg/agent-plugins-builder@0.1.0 init --yes --name my-plugin
 ```
 
 ## Validate
 
 ```bash
 # Validate and package as an archive
-npx @hiai-gg/agent-plugins-builder@0.0.9 package ./my-plugin
+npx @hiai-gg/agent-plugins-builder@0.1.0 package ./my-plugin
 
 # Hand off to Agent Plugin Doctor for deep validation and security auditing
 npx @hiai-gg/agent-plugins-doctor@0.0.6 check ./my-plugin

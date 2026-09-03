@@ -1,9 +1,16 @@
+import { readFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { Command } from 'commander';
 import { initCommand } from './commands/init';
 import { createCommand } from './commands/create';
 import { migrateCommand } from './commands/migrate';
 import { inspectCommand } from './commands/inspect';
 import { packageCommand } from './commands/package';
+
+const pkg = JSON.parse(
+  readFileSync(join(dirname(fileURLToPath(import.meta.url)), '../package.json'), 'utf8'),
+) as { version: string };
 
 export function run() {
   const program = new Command();
@@ -29,7 +36,7 @@ export function run() {
   // `create --version <version>` flag before it reaches the subcommand.
   const args = process.argv.slice(2);
   if (args.length === 1 && (args[0] === '--version' || args[0] === '-V')) {
-    console.log('0.0.9');
+    console.log(pkg.version);
     process.exit(0);
   }
 

@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.0] — 2026-09-03
+
+First `0.1.0` after the `0.0.1`–`0.0.9` line.
+
+### Tests
+
+- Doctor integration validation is required in the Builder test suite.
+
+### Documentation
+
+- Launch-experience polish for the public README and ecosystem navigation.
+- Noted the `mkdtempSync` `/tmp` ENOENT Windows fix in MEMORY.md.
+
 ## [0.0.9] — 2026-08-08
 
 ### Fixed
@@ -143,6 +156,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Documentation**: README, ARCHITECTURE.md, MIGRATION_SOURCES.md, AGENT_PLUGINS_SPEC_SUPPORT.md
 - **CI**: GitHub Actions workflow testing on Linux, macOS, and Windows
 
+[0.1.0]: https://github.com/HiAi-gg/agent-plugins-builder/releases/tag/v0.1.0
 [0.0.9]: https://github.com/HiAi-gg/agent-plugins-builder/releases/tag/v0.0.9
 [0.0.8]: https://github.com/HiAi-gg/agent-plugins-builder/releases/tag/v0.0.8
 [0.0.7]: https://github.com/HiAi-gg/agent-plugins-builder/releases/tag/v0.0.7
